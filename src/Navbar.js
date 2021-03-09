@@ -27,13 +27,14 @@ const styles={
     img: {
         height:30,
         width:30,
+        marginRight:20
     },
     comp: {
         position: 'absolute',
         borderRadius:"50%",
-        padding:"4px 8px",
-        right: -5,
-         top: -7,
+        padding:"1px 8px",
+        right: 5,
+         top: 0,
         backgroundColor: 'yellow'
     }
 }
