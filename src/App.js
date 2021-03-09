@@ -30,32 +30,42 @@ componentDidMount=() => {
 increaseQuantity=(product)=>{
     const {products}=this.state;
     const index=products.indexOf(product);
-    products[index].qty+=1;
-    this.setState({
-        products: products,
-        
+    const docRef=this.db.collection("products").doc(products[index].id);
+    docRef.update({
+      qty: products[index].qty+1
+    }).then(()=>{
+      console.log("update succesfully")
     })
-    return ;
+    .catch((err)=>{
+      console.log(err)
+    })
+  
+  
 }
 decreaseQuantity=(product)=>{
     const {products}=this.state;
     const index=products.indexOf(product);
+    const docRef=this.db.collection("products").doc(products[index].id);
     if(products[index].qty===0){
-        return;
+      return
     }
-    products[index].qty-=1;
-    this.setState({
-        products: products
+    docRef.update({
+      qty: products[index].qty-1
+    }).then(()=>{
+      console.log("update succesfully")
+    })
+    .catch((err)=>{
+      console.log(err)
     })
 }
 deleteProducts=(id)=>{
     const{products}=this.state
-    const items=products.filter((item)=>
-        item.id!==id
-    )
-    this.setState({
-        products: items
-    })
+    const docRef=this.db.collection("products").doc(id);
+   docRef.delete().then(()=>{
+     console.log("delete succesfully")
+   }).catch((err)=>{
+     console.log(err)
+   })
 }
 getTotalItems=()=>{
   const {products}=this.state
